@@ -4,7 +4,7 @@
     require_once '../headers.php';
    class AgregarCategoriasControllers{
 
-   	    public function addCategoriasController(){
+   	  public function addCategoriasController(){
    	      $data = file_get_contents("php://input");
 		  $request = json_decode($data);
 		  $request = (array) $request;
