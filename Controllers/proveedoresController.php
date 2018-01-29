@@ -1,15 +1,15 @@
 <?php 
 
 
-    require_once '../Models/productosModel.php';
+    require_once '../Models/proveedoresModel.php';
     require_once '../headers.php';
 
-    class ProductosControllers{
+    class ProveedoresControllers{
 
 
     	   public function getProductosController(){
 		  
-		      $respuesta = ProductosModel::getProductosModel('productos');
+		      $respuesta = ProveedoresModel::getProveedorModel('proveedores');
 
 		       if ($respuesta) {
 		        
@@ -74,8 +74,8 @@
 
 
    if(isset($_GET['id'])){
-   	  if ($_GET['id'] == "getProd") {
-         $cat=new ProductosControllers;
+   	  if ($_GET['id'] == "getProveedores") {
+         $cat=new ProveedoresControllers;
          $cat->getProductosController();
       }
    }
