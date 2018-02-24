@@ -51,22 +51,43 @@
                    }
         }
 
+        public function comprobarProductoCodigoController(){
+              $data = file_get_contents("php://input");
+              $request = json_decode($data);
+              $request = (array) $request;
+              $codigo =$request['codigo'];
+          
+               $respuesta = ProductosModel::comprobarProductosCodigoModel($codigo, 'productos' );
+
+                   if ($respuesta == 'success') {
+                    
+                      echo json_encode(1);
+                   
+                   }else{
+                    echo json_encode(0);
+                   }
+        }
+
    	  public function addProductosController(){
    	      $data = file_get_contents("php://input");
 		      $request = json_decode($data);
 		      $request = (array) $request;
         
+          $codigo =$request['codigo'];
           $nombreProducto =$request['nombreProducto'];
           $idProveedor =$request['idProveedor'];
           $precioProducto =$request['precioProducto'];
           $idCategoria =$request['idCategoria'];
+          $estado =$request['estado'];
 		 
  			
  			$respuesta = ProductosModel::addProductosModel(
- 				$nombreProducto,
- 				$idProveedor,
- 				$precioProducto,
- 				$idCategoria,
+        $codigo,
+        $nombreProducto,
+        $idProveedor,
+        $precioProducto,
+        $idCategoria,
+        $estado,
  				 'productos' );
 
  			 if ($respuesta == 'success') {
@@ -165,12 +186,14 @@
           $cantidadIngresada =$request['cantidadIngresada'];
           $precioVenta =$request['precioVenta'];
           $idProducto =$request['idProducto'];
+          $codigo =$request['codigo'];
           
     
             $respuesta = ProductosModel::agregarInventarioModel(
               $cantidadIngresada,
               $precioVenta,
               $idProducto, 
+              $codigo,
               'inventario');
            
                  
@@ -213,6 +236,13 @@
       if ($_GET['id'] == "comprobar") {
         $comprobar = new ProductosControllers;
         $comprobar->comprobarProductoController();  
+      }
+}
+
+    if(isset($_GET['id'])){
+      if ($_GET['id'] == "comprobarCodigo") {
+        $comprobar = new ProductosControllers;
+        $comprobar->comprobarProductoCodigoController();  
       }
 }
    if(isset($_GET['id'])){
